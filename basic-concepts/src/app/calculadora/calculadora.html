@@ -1,6 +1,6 @@
 <div class="container">
   <div class="form-box">
-    <form #frmCalculadora="ngForm">
+    <form #frmCalculadora="ngForm" (ngSubmit)="calcularResultado()">
         <h2>Calculadora</h2>
         <label for="numero1">Numero 1</label>
         <input type="number" name="numero1" id="numero1" [(ngModel)]="numero1">
@@ -8,12 +8,27 @@
         <label for="numero2">Numero 2</label>
         <input type="number" name="numero2" id="numero2"[(ngModel)]="numero2">
 
-        <button type="button" (click)="calcularResultado()">Somar</button>
+        <button type="submit">Somar</button>
     </form>
-      
+     
+      <div class="result-display" *ngIf="resultado"> <!-- nao tem else-->
+        <p>Seu Resultado esta abaixo: <span id="result">{{ resultado }}</span></p>
+     </div> 
+
+    @if(resultado){
      <div class="result-display">    
         <p>Resultado: <span id="result">{{ resultado }}</span></p>
-     </div>
+     </div> <!-- essa forma so faz sentido Se resultado for verdadeiro, no caso vier dados, falso ou null ou undefined-->
+    } @else {
+         <div class="result-display"> <!-- nao tem else-->
+        <p>nao teve nenhum retorno <span id="result">{{ resultado }}</span></p>
+     </div> 
+    }
+    
+
+     
+
+
 
   </div>
 </div>
