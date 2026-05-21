@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px #ccc;
+    padding: 20px 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1{
+    font-size: 24px;
+    max-resolution: 20px;
+    color: gray;
+}
+
+.add-item-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px ;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #0a6ab9;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #0a6ab9;
+}
+
+button{
+    padding: 10px 20px;
+    border:  none;
+    border-radius: 6px;
+    background: #0383ec;  
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover{
+    background: #0a6ab9;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead{  
+    background: #0a6ab9;
+    color: #fff;
+}
+th{
+ background: #0383ec;   
+}
+
+th, td{
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+tr:nth-child(odd){
+    background: #f9f9f9;
+}
+
+tr:nth-child(even){
+    background: #aed7f8;
+}
+
+input[type="checkbox"]{
+    transform: scale(1.2);
+    cursor: pointer;
+}
