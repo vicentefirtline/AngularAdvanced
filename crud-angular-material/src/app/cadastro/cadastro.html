@@ -1,11 +1,75 @@
 <div fxLayout="row" fxLayoutAlign="center">
-    <div fxLayout="column" fxFlex="1000px">
-        <form class="mt-60" #frmclientes="ngForm">
+    <div fxLayout="column" fxFlex="900px">
+        <form class="mt-60" #frmclientes="ngForm" (ngSubmit)="salvar()">
            <mat-card>
             <mat-card-header>
                 <mat-card-title>Dados Pessoais</mat-card-title>
             </mat-card-header>
-            <mat-card-content> </mat-card-content>
+            <mat-card-content class="mt-20"> 
+                  <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                    <div fxLayout="column" fxFlex="800px">
+                     <mat-form-field class="full-width">
+                        <mat-label>Nome Completo: *</mat-label>
+                        <input matInput type="text" placeholder= "informe o nome" name="nome" [(ngModel)]="cliente.nome"> 
+                     </mat-form-field> 
+                     </div>
+                   </div>
+                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                        <div fxLayout="column" fxFlex="800px">
+                        <mat-form-field class="full-width">
+                            <mat-label>Endereço: *</mat-label>
+                            <input matInput type="text" placeholder= "informe o endereço" name="endereco" [(ngModel)]="cliente.endereco"> 
+                        </mat-form-field> 
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                        <mat-form-field class="full-width">
+                            <mat-label>CPF: *</mat-label>
+                            <input matInput type="text" placeholder= "informe o CPF" name="cpf" [(ngModel)]="cliente.cpf"> 
+                        </mat-form-field> 
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                        <mat-form-field class="full-width">
+                            <mat-label>Email: *</mat-label>
+                            <input matInput type="email" placeholder= "informe o email" name="email" [(ngModel)]="cliente.email"> 
+                        </mat-form-field> 
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                        <mat-form-field class="full-width">
+                            <mat-label>Telefone: *</mat-label>
+                            <input matInput type="text" placeholder= "informe o telefone" name="telefone" [(ngModel)]="cliente.telefone"> 
+                        </mat-form-field> 
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                        <mat-form-field class="full-width">
+                            <mat-label>Data de Nascimento: *</mat-label>
+                            <input matInput type="text" placeholder= "informe a data de nascimento" name="dataNascimento" [(ngModel)]="cliente.dataNascimento"> 
+                        </mat-form-field> 
+                    </div>
+                    </div>
+                   
+            </mat-card-content>
+                <mat-card-actions class="mt-20">
+                    <button mat-flat-button color="primary" type="submit" class="ml-5">
+                    <mat-icon fontIcon="save"></mat-icon>
+                        Salvar
+                    </button>
+                    <button mat-flat-button color="primary" type="button" class="ml-5">
+                        <mat-icon fontIcon="refresh"></mat-icon>
+                        atualizar
+                    </button>
+                   
+                    <button mat-raised-button color="warn" type="reset" class="ml-5">
+                        <mat-icon fontIcon="close"></mat-icon>
+                        Cancelar</button>
+                </mat-card-actions>
            </mat-card>
         </form>
 
