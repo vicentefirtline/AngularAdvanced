@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center">
-    <div fxLayout="column" fxFlex="1000px">
-        <form class="mt-60" #frmbusca="ngForm">
+    <div fxLayout="column" fxFlex="1100px">
+        <form class="mt-60" #frmbusca="ngForm" (ngSubmit)="pesquisarClientes()">
             <mat-card appearance="outlined">  
                 <mat-card-header>
                     <mat-card-title>Consulta de Clientes</mat-card-title>
@@ -10,7 +10,7 @@
                         <div fxLayout="column" fxFlex="950px">
                             <mat-form-field class="full-width">
                                 <mat-label>Nome: </mat-label>
-                                <input matInput placeholder="Digite o nome do cliente" name="nome" ngModel>
+                                <input name="nomeBusca" [(ngModel)]="nomeBusca" matInput placeholder="Digite o nome do cliente" name="nome" ngModel>
                             </mat-form-field>
 
                         </div>
@@ -33,13 +33,55 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="center">
-    <div fxLayout="column" fxFlex="1000px">
+    <div fxLayout="column" fxFlex="1100px">
         <mat-card appearance="outlined">
             <mat-card-header>
               <mat-card-title>Resultado Consulta de Clientes:</mat-card-title>
              </mat-card-header>
              <mat-card-content>
             <!-- Conteúdo da lista de clientes -->
+             <table mat-table [dataSource]="listaClientes">
+                <ng-container    matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nome">
+                    <th mat-header-cell *matHeaderCellDef> Nome </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.nome}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="telefone">
+                    <th mat-header-cell *matHeaderCellDef> Telefone </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.telefone}} </td>
+                </ng-container>
+                <ng-container matColumnDef="endereco">
+                    <th mat-header-cell *matHeaderCellDef> Endereço </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.endereco}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cpf">
+                    <th mat-header-cell *matHeaderCellDef> CPF </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.cpf}} </td>
+                </ng-container>
+                <ng-container matColumnDef="dataNascimento">
+                    <th mat-header-cell *matHeaderCellDef> Data de Nascimento </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.dataNascimento}} </td>            
+                </ng-container>
+                 <ng-container matColumnDef="acoes">
+                    <th mat-header-cell *matHeaderCellDef ></th>
+                    <td mat-cell *matCellDef="let cliente">
+                    <button type="button" mat-button  (click)="editarCliente(cliente.id)">
+                        <mat-icon fontIcon="edit"></mat-icon>
+                        Editar
+                    </button> 
+                     </td>
+                </ng-container>
+
+                   <tr mat-header-row *matHeaderRowDef="colunasTabela"></tr>
+                   <tr mat-row *matRowDef="let cliente; columns: colunasTabela"></tr>
+             </table>
               </mat-card-content>
         </mat-card>
 

@@ -15,8 +15,15 @@ storageClientes.push(cliente);// Adiciona o novo cliente ao array de clientes
 localStorage.setItem(ClienteService.REPO_CLIENTE, JSON.stringify(storageClientes)); // Armazena o array atualizado de clientes no localStorage
 }
 
-pesquisarClientes(nome: string): Cliente[] {
-  return this.obterStorage();
+pesquisarClientes(nomeBusca: string): Cliente[] {
+ const clientes = this.obterStorage(); 
+ // Obtém os clientes armazenados no localStorage
+  if (!nomeBusca) {
+  return clientes; // Retorna todos os clientes se o nome de busca estiver vazio
+ }
+ //return clientes.filter(cliente => cliente.nome?.indexOf(nomeBusca) !== -1); // Retorna os clientes cujo nome contém a string de busca (ignorando maiúsculas/minúsculas)   
+  return clientes.filter(cliente => cliente.nome?.toLowerCase().includes(nomeBusca.toLowerCase())); // Retorna os clientes cujo nome contém a string de busca (ignorando maiúsculas/minúsculas)   
+  
 }
 
 private obterStorage(): Cliente[] {
