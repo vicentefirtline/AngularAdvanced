@@ -22,7 +22,8 @@ export class Consulta implements OnInit {
   nomeBusca : string = ''; 
   listaClientes : Cliente[] = [];
   colunasTabela: string[] = ['id', 'nome', 'email', 'telefone', 'endereco', 'cpf', 'dataNascimento',"acoes"];
-  
+  deletando : boolean = false;
+
   constructor(
     private clienteService: ClienteService,
     private router: Router
@@ -43,5 +44,10 @@ this.router.navigate(['/cadastro'], { queryParams: { "id" : id } });
 
 }
 
-  
+preparaDeletarCliente() {
+  this.deletando = true;
+}
+
+deletarCliente(cliente : Cliente) {}
+
 }

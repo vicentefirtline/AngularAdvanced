@@ -57,14 +57,17 @@
                    
             </mat-card-content>
                 <mat-card-actions class="mt-20">
+                    @if(!atualizando){ <!-- Se não estiver atualizando, exibe o botão de salvar-->
                     <button mat-flat-button color="primary" type="submit" class="ml-5">
                     <mat-icon fontIcon="save"></mat-icon>
                         Salvar
                     </button>
-                    <button mat-flat-button color="primary" type="button" class="ml-5">
+                    } @else {
+                    <button mat-flat-button color="primary" type="submit" class="ml-5">
                         <mat-icon fontIcon="refresh"></mat-icon>
                         atualizar
                     </button>
+                  }
                    
                     <button mat-raised-button color="warn" type="reset" class="ml-5">
                         <mat-icon fontIcon="close"></mat-icon>

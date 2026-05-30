@@ -15,6 +15,31 @@ storageClientes.push(cliente);// Adiciona o novo cliente ao array de clientes
 localStorage.setItem(ClienteService.REPO_CLIENTE, JSON.stringify(storageClientes)); // Armazena o array atualizado de clientes no localStorage
 }
 
+/*atualizar(cliente: Cliente) {
+const storageClientes = this.obterStorage(); // Obtém os clientes armazenados no localStorage
+storageClientes.forEach(clienteStorage  => {
+  if(clienteStorage.id === cliente.id){
+    Object.assign(clienteStorage, cliente); // Atualiza as propriedades do cliente encontrado com as novas informações      
+  }
+
+})
+localStorage.setItem(ClienteService.REPO_CLIENTE, JSON.stringify(storageClientes)); 
+} */
+
+atualizar(cliente: Cliente) {
+  let storageClientes = this.obterStorage();
+  
+  storageClientes = storageClientes.map(clienteStorage => {
+    if (clienteStorage.id === cliente.id) {
+      return Object.assign(clienteStorage, cliente);
+    }
+    return clienteStorage;
+  });
+
+  localStorage.setItem(ClienteService.REPO_CLIENTE, JSON.stringify(storageClientes));
+}
+
+
 pesquisarClientes(nomeBusca: string): Cliente[] {
  const clientes = this.obterStorage(); 
  // Obtém os clientes armazenados no localStorage
@@ -24,6 +49,12 @@ pesquisarClientes(nomeBusca: string): Cliente[] {
  //return clientes.filter(cliente => cliente.nome?.indexOf(nomeBusca) !== -1); // Retorna os clientes cujo nome contém a string de busca (ignorando maiúsculas/minúsculas)   
   return clientes.filter(cliente => cliente.nome?.toLowerCase().includes(nomeBusca.toLowerCase())); // Retorna os clientes cujo nome contém a string de busca (ignorando maiúsculas/minúsculas)   
   
+}
+
+buscarClientePorId(id: string): Cliente | undefined {
+  const clientes = this.obterStorage(); 
+  // Obtém os clientes armazenados no localStorage
+  return clientes.find(cliente => cliente.id === id) || Cliente.newCliente();
 }
 
 private obterStorage(): Cliente[] {
