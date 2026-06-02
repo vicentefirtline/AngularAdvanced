@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center">
-    <div fxLayout="column" fxFlex="1115px">
+    <div fxLayout="column" fxFlex="1250px">
         <form class="mt-60" #frmbusca="ngForm" (ngSubmit)="pesquisarClientes()">
             <mat-card appearance="outlined">  
                 <mat-card-header>
@@ -33,7 +33,7 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="center">
-    <div fxLayout="column" fxFlex="1115px">
+    <div fxLayout="column" fxFlex="1250px">
         <mat-card appearance="outlined">
             <mat-card-header>
               <mat-card-title>Resultado Consulta de Clientes:</mat-card-title>
@@ -76,8 +76,8 @@
                         <mat-icon fontIcon="edit"></mat-icon>
                         Editar
                     </button> 
-                    @if(!deletando){
-                    <button type="button" mat-button  (click)="preparaDeletarCliente()">
+                    @if(!cliente.deletando){
+                    <button type="button" mat-button  (click)="preparaDeletarCliente(cliente)">
                          <mat-icon fontIcon="delete"></mat-icon>
                         Deletar
                     </button> } @else {

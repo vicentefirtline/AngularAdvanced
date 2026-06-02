@@ -39,6 +39,19 @@ atualizar(cliente: Cliente) {
   localStorage.setItem(ClienteService.REPO_CLIENTE, JSON.stringify(storageClientes));
 }
 
+deletarCliente(cliente: Cliente) {
+  const storageClientes = this.obterStorage(); // Obtém os clientes armazenados no localStorage
+
+  const novaLista = storageClientes.filter(clienteStorage => clienteStorage.id !== cliente.id); // Remove o cliente com o ID correspondente do array de clientes
+
+  const indexItem = storageClientes.indexOf(cliente);
+  if (indexItem > -1) {
+    storageClientes.splice(indexItem, 1); // Remove o cliente do array de clientes
+  }
+
+  localStorage.setItem(ClienteService.REPO_CLIENTE, JSON.stringify(novaLista));
+}
+
 
 pesquisarClientes(nomeBusca: string): Cliente[] {
  const clientes = this.obterStorage(); 

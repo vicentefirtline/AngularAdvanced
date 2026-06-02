@@ -8,6 +8,7 @@ export class Cliente {
     endereco?: string ;
     cpf?: string = '';
     dataNascimento?: string;
+    deletando: boolean = false;
 
     static newCliente(){
         const cliente = new Cliente();
