@@ -11,12 +11,19 @@ import { ClienteService } from '../cliente.service';
 import { ActivatedRoute, Router} from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'; 
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';    
+import {MatSelectModule} from '@angular/material/select';
+import { Brasilapi } from '../brasilapi.service';
+import { Estado, Municipio } from '../brasilapi.models';
+import { CommonModule } from '@angular/common';
+
+
 
 
 @Component({
   selector: 'app-cadastro',
   imports: [FlexLayoutModule, MatCardModule, FormsModule,
-     MatFormFieldModule, MatInputModule, MatButtonModule, MatIcon, NgxMaskDirective ,MatSnackBarModule],
+     MatFormFieldModule, MatInputModule, MatButtonModule, MatIcon, NgxMaskDirective,
+      CommonModule ,MatSnackBarModule, MatSelectModule],
       providers: [provideNgxMask()],
      templateUrl: './cadastro.html',
   styleUrl: './cadastro.scss',
@@ -25,12 +32,16 @@ export class Cadastro implements OnInit {
   cliente: Cliente = Cliente.newCliente();
   atualizando: boolean = false;
    snack: MatSnackBar = inject(MatSnackBar);
+   estados: Estado[] = [];
+   municipios: Municipio[] = [];  
+   
 
   
   constructor(
     private clienteService: ClienteService,
     private route : ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private brasilApiService : Brasilapi
   ){
 
   }
@@ -48,6 +59,9 @@ export class Cadastro implements OnInit {
        }
       }
     })
+
+    this.carregarUFs(); //puxando a funcao das ufs para carregar as ufs no select do cadastro
+
   }
 
   /*salvar(){
@@ -72,6 +86,17 @@ export class Cadastro implements OnInit {
   }
    this.router.navigate(['/consulta']);
 }
+
+
+carregarUFs(){
+  //observable subscriber
+this.brasilApiService.listarUFs().subscribe({
+next: (listaEstados) => {
+  this.estados = listaEstados;
+}
+});
+}
+
 
 mostrarMensagem(mensagem: string){
 this.snack.open(mensagem, 'Fechar', {
