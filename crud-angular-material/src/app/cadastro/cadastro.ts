@@ -11,10 +11,11 @@ import { ClienteService } from '../cliente.service';
 import { ActivatedRoute, Router} from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'; 
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';    
-import {MatSelectModule} from '@angular/material/select';
+import {MatSelectChange, MatSelectModule} from '@angular/material/select';
 import { Brasilapi } from '../brasilapi.service';
 import { Estado, Municipio } from '../brasilapi.models';
 import { CommonModule } from '@angular/common';
+import {  ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -41,12 +42,13 @@ export class Cadastro implements OnInit {
     private clienteService: ClienteService,
     private route : ActivatedRoute,
     private router: Router,
-    private brasilApiService : Brasilapi
+    private brasilApiService : Brasilapi,
+    private cdr: ChangeDetectorRef
   ){
 
   }
 
-  ngOnInit(): void{
+ngOnInit(): void{
    this.route.queryParamMap.subscribe((query:any) => {
     const params = query['params']
     //console.log("Params: ", params);
@@ -56,6 +58,13 @@ export class Cadastro implements OnInit {
        if(clienteEncontrado){   
         this.atualizando = true;
         this.cliente = clienteEncontrado;
+        if(this.cliente.uf){
+          this.carregarMunicipios({value: this.cliente.uf} as MatSelectChange);
+          
+          // >>> ADICIONE APENAS ESTA LINHA AQUI <<<
+          this.cdr.detectChanges();
+          
+        }
        }
       }
     })
@@ -88,16 +97,40 @@ export class Cadastro implements OnInit {
 }
 
 
-carregarUFs(){
-  //observable subscriber
-this.brasilApiService.listarUFs().subscribe({
-next: (listaEstados) => {
-  this.estados = listaEstados;
-}
-});
+carregarUFs() {
+  this.brasilApiService.listarUFs().subscribe({
+    next: (listaEstados) => {
+      this.estados = listaEstados;
+
+      if (this.cliente.uf) {
+        // >>> ADICIONE ESTA LINHA (Abertura)
+        setTimeout(() => {
+          
+          this.carregarMunicipios({
+            value: this.cliente.uf
+          } as MatSelectChange);
+
+        // >>> ADICIONE ESTA LINHA (Fechamento)
+        }, 0);
+      }
+    }
+  });
 }
 
+carregarMunicipios(event:MatSelectChange){
+ const ufSelecionada = event.value;
+ this.brasilApiService.listarMunicipiosPorUF(ufSelecionada).subscribe({
+  next: (listaMunicipios) => {
+    this.municipios = listaMunicipios;
 
+    // >>> ADICIONE ESTAS LINHAS <<<
+    setTimeout(() => {
+      this.cliente.municipio = this.cliente.municipio;
+    }, 0);
+    
+  }
+ });
+}
 mostrarMensagem(mensagem: string){
 this.snack.open(mensagem, 'Fechar', {
 duration: 3000,

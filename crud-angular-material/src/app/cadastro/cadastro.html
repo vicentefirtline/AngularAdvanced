@@ -55,19 +55,31 @@
                     </div>
                     </div>
                    
-                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+<div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                         <mat-form-field class="full-width" floatLabel="always">
                             <mat-label>UF: *</mat-label>
-                            <mat-select placeholder="Selecione a UF">
+                            <mat-select name="uf" [(ngModel)]="cliente.uf" (selectionChange)="carregarMunicipios($event)" placeholder="Selecione a UF">
                                 <mat-option *ngFor="let uf of estados"  [value]="uf.sigla">
-                                    {{ uf.sigla }} - {{ uf.nome  }}
+                                    {{ uf.sigla }} - {{ uf.nome }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field> 
                     </div>
                     </div>
 
+                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                        <mat-form-field class="full-width" floatLabel="always">
+                            <mat-label>Município: *</mat-label>
+                            <mat-select name="municipio" [(ngModel)]="cliente.municipio" placeholder="Selecione o Município">
+                                <mat-option *ngFor="let municipio of municipios"  [value]="municipio.nome">
+                                    {{ municipio.nome }} - {{ municipio.codigo_ibge  }} 
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field> 
+                    </div>
+                    </div>
             </mat-card-content>
                 <mat-card-actions class="mt-20">
                     @if(!atualizando){ <!-- Se não estiver atualizando, exibe o botão de salvar-->
